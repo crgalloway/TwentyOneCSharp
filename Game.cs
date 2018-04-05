@@ -11,8 +11,9 @@ namespace DeckOfCards
         Player dealer;
         public Game(){
             twentyOne = new Deck();
-            Player Dealer = new Player("Dealer");
-            PlayerList.Add(Dealer);
+            twentyOne.Shuffle();
+            // Player Dealer = new Player("Dealer");
+            // PlayerList.Add(Dealer);
             CreatePlayers();
             StartGame();
         }
@@ -32,7 +33,7 @@ namespace DeckOfCards
         }
         private void StartGame()
         {
-            while(PlayerList.Count<3)
+            while(PlayerList.Count<2)
             {
                 Console.Clear();
                 System.Console.WriteLine("You need more players first!");
@@ -49,7 +50,7 @@ namespace DeckOfCards
         private void CoreGame(){
             foreach(Player player in PlayerList)
             {
-                if (player != dealer)
+                if (player == dealer)
                 {
                     continue;
                 }
@@ -119,7 +120,8 @@ namespace DeckOfCards
                 System.Console.WriteLine("One face-down card");
                 for(int i =1; i<otherPlayer.hand.Count;i++)
                 {
-                    System.Console.WriteLine($"{otherPlayer.hand[i].stringVal} of {otherPlayer.hand[i].suit}");
+                    Console.OutputEncoding = System.Text.Encoding.Unicode;
+                    System.Console.WriteLine($"{otherPlayer.hand[i].stringVal} of {otherPlayer.hand[i].suit} {otherPlayer.hand[i].unicode}");
                 }
                 Console.ReadLine();
             }
@@ -131,7 +133,8 @@ namespace DeckOfCards
             System.Console.WriteLine($"{player.name}'s current hand:");
             foreach(Card card in player.hand)
             {
-                System.Console.WriteLine($"{card.stringVal} of {card.suit}");
+                Console.OutputEncoding = System.Text.Encoding.Unicode;
+                System.Console.WriteLine($"{card.stringVal} of {card.suit} {card.unicode}");
             }
         }
         private void EndGame()
