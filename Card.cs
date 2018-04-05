@@ -6,11 +6,14 @@ namespace DeckOfCards
     {
         public string stringVal;
         public string suit;
+        public string unicode;
         public int val;
-        public Card(string stringVal,string suit)
+        public Card(string stringVal,string suit, string unicode)
         {
             this.stringVal = stringVal;
             this.suit = suit;
+            this.unicode = unicode;
+            
             if (stringVal == "Ace")
             {
                 this.val = 11;

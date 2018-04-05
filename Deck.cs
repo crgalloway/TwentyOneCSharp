@@ -15,17 +15,58 @@ namespace DeckOfCards
         {
             string[] values = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
             string[] suits = {"Diamonds","Hearts","Clubs","Spades"};
+
             foreach(string suit in suits)
             {
+                string unicodeSuit;
+                if (suit == "Diamonds")
+                {
+                    unicodeSuit = "\u2666";
+                }
+                else if (suit == "Hearts")
+                {
+                    unicodeSuit = "\u2665";
+                }
+                else if (suit == "Clubs")
+                {
+                    unicodeSuit = "\u2663";
+                }
+                else
+                {
+                    unicodeSuit = "\u2660";
+                }
                 foreach(string value in values)
                 {
-                    string unicodeSuit;
-                    if (suit == "Diamonds")
+                    string unicodeValue;
+                    if (value == "Ace")
                     {
-                        unicodeSuit = "C";
+                        unicodeValue = "1";
                     }
-                    Card newCard = new Card(value, suit);
+                    else if ( value == "10")
+                    {
+                        unicodeValue = "A";
+                    }
+                    else if ( value == "Jack")
+                    {
+                        unicodeValue = "B";
+                    }
+                    else if ( value == "Queen")
+                    {
+                        unicodeValue = "D";
+                    }
+                    else if ( value == "King")
+                    {
+                        unicodeValue = "E";
+                    }
+                    else{
+                        unicodeValue = value;
+                    }
+                    
+                    string unicode = unicodeSuit;
+                    
+                    Card newCard = new Card(value, suit, unicode);
                     Cards.Add(newCard);
+                    
                 }
             }
         }

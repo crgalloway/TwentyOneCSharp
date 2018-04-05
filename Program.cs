@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+
 
 namespace DeckOfCards
 {
@@ -17,7 +19,10 @@ namespace DeckOfCards
             System.Console.WriteLine(player1.name+"'s Hand:");
             foreach (Card card in player1.hand)
             {
-                System.Console.WriteLine("{0} of {1}",card.stringVal,card.suit);
+
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.WriteLine("{1} of {0} {2}", card.unicode, card.stringVal, card.suit);
+     
             }
             // player1.Discard(newDeck,1);
             // player1.Discard(newDeck,0);
