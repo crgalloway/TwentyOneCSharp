@@ -8,8 +8,11 @@ namespace DeckOfCards
     {
         List<Player> PlayerList = new List<Player>();
         Deck twentyOne;
+        Player dealer;
         public Game(){
             twentyOne = new Deck();
+            Player Dealer = new Player("Dealer");
+            PlayerList.Add(Dealer);
             CreatePlayers();
             StartGame();
         }
@@ -19,7 +22,7 @@ namespace DeckOfCards
             System.Console.WriteLine("Enter Player's name:");
             string newName = Console.ReadLine();
             Player newPlayer = new Player(newName);
-            this.PlayerList.Add(newPlayer);
+            PlayerList.Add(newPlayer);
             System.Console.WriteLine("Create more players? Yes/No");
             string morePlayers = Console.ReadLine();
             if(morePlayers == "Yes"||morePlayers == "yes"||morePlayers == "Y"||morePlayers == "y")
@@ -29,7 +32,7 @@ namespace DeckOfCards
         }
         private void StartGame()
         {
-            while(PlayerList.Count<2)
+            while(PlayerList.Count<3)
             {
                 Console.Clear();
                 System.Console.WriteLine("You need more players first!");
@@ -41,8 +44,15 @@ namespace DeckOfCards
                 player.Draw(twentyOne);
                 player.Draw(twentyOne);
             }
+            CoreGame();           
+        }
+        private void CoreGame(){
             foreach(Player player in PlayerList)
             {
+                if (player != dealer)
+                {
+                    continue;
+                }
                 Console.Clear();
                 System.Console.WriteLine($"{player.name}'s turn, hit enter to continue.");
                 Console.ReadLine();
@@ -75,13 +85,22 @@ namespace DeckOfCards
                 if(player.score > 21)
                 {
                     UpdateScreen(player);
-                    System.Console.WriteLine("Bust!");
+                    System.Console.WriteLine($"{player.name} Bust!");
                     // EliminatePlayer(player);
                     Console.ReadLine();
                     continue;
                 }
             }
-            EndGame();
+            System.Console.WriteLine("Is everyone done? (Y)es/(N)o");
+            string done = Console.ReadLine();
+            if(done == "Yes"||done == "yes"||done == "Y"||done == "y")
+            {
+                EndGame();
+            }
+            else if(done == "No"||done == "no"||done == "N"||done == "n")
+            {
+                CoreGame();
+            }
         }
         private void EliminatePlayer(Player loser)
         {
@@ -115,7 +134,8 @@ namespace DeckOfCards
                 System.Console.WriteLine($"{card.stringVal} of {card.suit}");
             }
         }
-        private void EndGame(){
+        private void EndGame()
+        {
             Console.Clear();
             System.Console.WriteLine("Game Over! Here are the scores:");
             foreach(Player player in PlayerList)
