@@ -6,19 +6,20 @@ namespace DeckOfCards
     {
         static void Main(string[] args)
         {
-            Deck newDeck = new Deck();
-            newDeck.Shuffle();
-            Player player1 = new Player("Craig");
-            player1.Draw(newDeck);
-            player1.Draw(newDeck);
-            player1.Draw(newDeck);
-            player1.Draw(newDeck);
-            player1.Draw(newDeck);
-            System.Console.WriteLine(player1.name+"'s Hand:");
-            foreach (Card card in player1.hand)
-            {
-                System.Console.WriteLine("{0} of {1}",card.stringVal,card.suit);
-            }
+            Game newGame = new Game();
+            // Deck newDeck = new Deck();
+            // newDeck.Shuffle();
+            // Player player1 = new Player("Craig");
+            // player1.Draw(newDeck);
+            // player1.Draw(newDeck);
+            // player1.Draw(newDeck);
+            // player1.Draw(newDeck);
+            // player1.Draw(newDeck);
+            // System.Console.WriteLine(player1.name+"'s Hand:");
+            // foreach (Card card in player1.hand)
+            // {
+            //     System.Console.WriteLine("{0} of {1}",card.stringVal,card.suit);
+            // }
             // player1.Discard(newDeck,1);
             // player1.Discard(newDeck,0);
             // player1.Discard(newDeck,3);
