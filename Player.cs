@@ -36,19 +36,24 @@ namespace DeckOfCards
         private void AdjustScore()
         {
             score = 0;
-            bool hasAce = false;
+            int numAces = 0;
             foreach(Card card in hand)
             {
                 score += card.val;
                 if (card.val == 11)
                 {
-                    hasAce = true;
+                    numAces++;
                 }
             }
-            if (score > 21 && hasAce)
+            while(numAces>0)
             {
-                score -= 10;
+               if (score > 21)
+                {
+                    score -= 10;
+                }
+                numAces--; 
             }
+            
         }
     }
 }

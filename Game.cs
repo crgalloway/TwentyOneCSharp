@@ -12,8 +12,6 @@ namespace DeckOfCards
         public Game(){
             twentyOne = new Deck();
             twentyOne.Shuffle();
-            // Player Dealer = new Player("Dealer");
-            // PlayerList.Add(Dealer);
             CreatePlayers();
             StartGame();
         }
@@ -40,6 +38,8 @@ namespace DeckOfCards
                 Console.ReadLine();
                 CreatePlayers();
             }
+            dealer = new Player("Dealer");
+            PlayerList.Add(dealer);
             foreach(Player player in PlayerList)
             {
                 player.Draw(twentyOne);
@@ -70,7 +70,7 @@ namespace DeckOfCards
                     }
                     else if(action == "Stand"||action == "stand"||action == "S"||action == "s")
                     {
-                        stillPlaying =false;
+                        stillPlaying = false;
                     }
                     else if(action == "View"||action == "view"||action == "V"||action == "v")
                     {
@@ -87,11 +87,17 @@ namespace DeckOfCards
                 {
                     UpdateScreen(player);
                     System.Console.WriteLine($"{player.name} Bust!");
-                    // EliminatePlayer(player);
                     Console.ReadLine();
                     continue;
                 }
             }
+            DealerTurn();
+        }
+        private void EliminatePlayer(Player loser)
+        {
+            PlayerList.Remove(loser);
+        }
+        private void EndGamePrompt(){
             System.Console.WriteLine("Is everyone done? (Y)es/(N)o");
             string done = Console.ReadLine();
             if(done == "Yes"||done == "yes"||done == "Y"||done == "y")
@@ -102,10 +108,12 @@ namespace DeckOfCards
             {
                 CoreGame();
             }
-        }
-        private void EliminatePlayer(Player loser)
-        {
-            PlayerList.Remove(loser);
+            else
+            {
+                System.Console.WriteLine("Just work with us here, you know what to enter.");
+                Console.ReadLine();
+                EndGamePrompt();
+            }
         }
         private void ViewOtherCards(Player player){
             foreach(Player otherPlayer in PlayerList)
@@ -136,6 +144,39 @@ namespace DeckOfCards
                 Console.OutputEncoding = System.Text.Encoding.Unicode;
                 System.Console.WriteLine($"{card.stringVal} of {card.suit} {card.unicode}");
             }
+        }
+        private void DealerTurn()
+        {
+            Console.Clear();
+            System.Console.WriteLine("Dealer's turn, hit enter to continue.");
+            Console.ReadLine();
+            Player dealer = PlayerList.Last();
+            bool stillPlaying = true;
+            while(stillPlaying)
+            {
+                Console.Clear();
+                UpdateScreen(dealer);
+                Console.ReadLine();
+                if(dealer.score < 17)
+                {
+                    System.Console.WriteLine("Dealer is going to draw a card!");
+                    dealer.Draw(twentyOne);
+                    Console.ReadLine();
+                }
+                else if(dealer.score < 22)
+                {
+                    System.Console.WriteLine("Dealer is going to stay!");
+                    stillPlaying = false;
+                    Console.ReadLine();
+                }
+                else
+                {
+                    System.Console.WriteLine("Dealer busts!");
+                    stillPlaying = false;
+                    Console.ReadLine();
+                }
+            }
+            EndGame();
         }
         private void EndGame()
         {
